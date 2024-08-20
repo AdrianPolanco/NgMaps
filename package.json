@@ -5,7 +5,7 @@
     "ng": "ng",
     "envs": "node ./scripts/set-env.js",
     "start": "npm run envs && ng serve -o",
-    "build": "npm run envs && ng build --prod",
+    "build": "npm run envs && ng build --aot --configuration=production",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },

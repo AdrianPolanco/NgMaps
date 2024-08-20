@@ -17,8 +17,6 @@ jobs:
             - name: Generate environment file
               env:
                 MAPBOX_KEY: ${{ secrets.MAPBOX_KEY }}
-              run: npm run envs
-            - name: Build app
               run: npm run build
 
 

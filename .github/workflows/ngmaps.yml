@@ -17,9 +17,9 @@ jobs:
             - name: Generate environment file
               env:
                 MAPBOX_KEY: ${{ secrets.MAPBOX_KEY }}
-              run: npm run build
-            - name: List dist content
-              run: ls -R ./dist
+              run: |
+                echo "MAPBOX_KEY=$MAPBOX_KEY" > .env
+                npm run build
             - name: Upload artifact
               uses: actions/upload-artifact@v4
               with:

@@ -3,6 +3,7 @@ on: workflow_dispatch
 jobs:
     build:
         runs-on: ubuntu-latest
+        environment: github-pages
         steps:
             - name: Checkout
               uses: actions/checkout@v4
@@ -14,14 +15,14 @@ jobs:
               run: npm install -g @angular/cli
             - name: Install Dependencies
               run: npm ci
-            - name: Generate environment file
-              run: |
-                echo "MAPBOX_KEY=${{ secrets.MAPBOX_KEY }}" > .env
-                node ./scripts/set-env.js
+            - name: Generate .env
+              run: echo "MAPBOX_KEY=${MAPBOX_KEY}" > .env
               env:
                 MAPBOX_KEY: ${{ secrets.MAPBOX_KEY }}
-            - name: Debug environment variables
-              run: set
+            - name: Generate environment.ts
+              run: node ./scripts/set-env.js
+            - name: Verificar archivo .env
+              run: cat .env
             - name: Build
               run: npm run build
             - name: Upload artifact

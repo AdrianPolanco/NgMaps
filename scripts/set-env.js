@@ -13,3 +13,6 @@ export const environment = {
 mkdirSync("./src/environments", { recursive: true });
 
 writeFileSync(targetPath, envFileContent);
+
+console.log(`Environment file generated at ${targetPath}`);
+console.log("Value of MAPBOX_KEY is: ", process.env["MAPBOX_KEY"]);

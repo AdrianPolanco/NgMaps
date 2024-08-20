@@ -15,12 +15,13 @@ jobs:
             - name: Install Dependencies
               run: npm ci
             - name: Generate environment file
-              env:
-                MAPBOX_KEY: ${{ secrets.MAPBOX_KEY }}
               run: |
-                echo "${{ secrets.MAPBOX_KEY }}"
                 echo "MAPBOX_KEY=${{ secrets.MAPBOX_KEY }}" > .env
                 node ./scripts/set-env.js
+              env:
+                MAPBOX_KEY: ${{ secrets.MAPBOX_KEY }}
+            - name: Debug environment variables
+              run: set
             - name: Build
               run: npm run build
             - name: Upload artifact

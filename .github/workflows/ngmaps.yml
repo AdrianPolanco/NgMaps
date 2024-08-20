@@ -19,7 +19,9 @@ jobs:
                 MAPBOX_KEY: ${{ secrets.MAPBOX_KEY }}
               run: |
                 echo "MAPBOX_KEY=$MAPBOX_KEY" > .env
-                npm run build
+                node ./scripts/set-env.js
+            - name: Build
+              run: npm run build
             - name: Upload artifact
               uses: actions/upload-artifact@v4
               with:

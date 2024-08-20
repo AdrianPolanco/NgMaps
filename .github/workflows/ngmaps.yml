@@ -18,11 +18,13 @@ jobs:
               env:
                 MAPBOX_KEY: ${{ secrets.MAPBOX_KEY }}
               run: npm run build
+            - name: List dist content
+              run: ls -R ./dist
             - name: Upload artifact
               uses: actions/upload-artifact@v4
               with:
-                name: build-artifacts
-                path: ./dist/ng-maps/browser
+                name: dist-files
+                path: ./dist
     deploy:
       runs-on: ubuntu-latest
       needs: build
@@ -30,13 +32,12 @@ jobs:
         - name: Download artifact
           uses: actions/download-artifact@v4
           with:
-            name: build-artifacts
+            name: dist-files
+            path: ./dist
         - name: List files in artifact directory
-          run: ls -R ./dist/ng-maps/browser
+          run: ls -R ./dist
         - name: Deploy to GitHub Pages
           uses: peaceiris/actions-gh-pages@v4
           with:
             github_token: ${{ secrets.GITHUB_TOKEN }}
             publish_dir: ./dist/ng-maps/browser
-
-
